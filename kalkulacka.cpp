@@ -40,7 +40,6 @@ int main() {
   for (; true; ){
     string input;
     int input_int;
-    bool is_ok = false;
     const int vyber = 5;
     cout << "1 pro sčítání, 2 pro odčítání, 3 pro násobení, 4 pro dělení, 5 pro ukončení: ";
     cin >> input;
