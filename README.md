@@ -1,0 +1,1 @@
+Nejlepší kalkulačka všech dob!
