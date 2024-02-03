@@ -63,6 +63,8 @@ int main() {
 
     string cislo1;
     string cislo2;
+    bool cislo1_zaporne = false;
+    bool cislo2_zaporne = false;
     cout << "cislo1: ";
     cin >> cislo1;
     cout << "cislo2: ";
@@ -70,12 +72,24 @@ int main() {
 
     if (!is_number(cislo1) || !is_number(cislo2))
     {
+      if (cislo1[0] == '-' && is_number(cislo1.erase(0, 1)))
+      {
+        cislo1_zaporne = true;
+        goto test;
+      }
+
+      if (cislo2[0] == '-' && is_number(cislo2.erase(0, 1)))
+      {
+        cislo2_zaporne = true;
+        goto test;
+      }
       cout << "ERROR: Nesprávné zadání!" << endl;
       continue;
     }
 
-    int cislo1_int = stoi(cislo1);
-    int cislo2_int = stoi(cislo2);
+    test:
+    int cislo1_int = cislo1_zaporne ? -stoi(cislo1) : stoi(cislo1);
+    int cislo2_int = cislo2_zaporne ? -stoi(cislo2) : stoi(cislo2);
     switch (input_int)
     {
       case 1:
