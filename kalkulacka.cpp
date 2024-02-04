@@ -11,21 +11,25 @@ bool is_number(const string& s)
     return !s.empty() && it == s.end();
 }
 
+string zaokrouhlit_cislo(float cislo) {
+  return roundf(cislo) == cislo ? to_string((int)cislo) : to_string(cislo);
+}
+
 string scitani(int cislo1, int cislo2, float& cislo) {
   cislo = cislo1 + cislo2;
-  string cislo_str = to_string(cislo);
+  string cislo_str = zaokrouhlit_cislo(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
 string odcitani(int cislo1, int cislo2, float& cislo) {
   cislo = cislo1 - cislo2;
-  string cislo_str = to_string(cislo);
+  string cislo_str = zaokrouhlit_cislo(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
 string nasobeni(int cislo1, int cislo2, float& cislo) {
   cislo = cislo1 * cislo2;
-  string cislo_str = to_string(cislo);
+  string cislo_str = zaokrouhlit_cislo(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
@@ -34,7 +38,7 @@ string deleni(float cislo1, float cislo2, float& cislo) {
     return "ERROR: Nelze dělit nulou!";
   
   cislo = cislo1 / cislo2;
-  string cislo_str = to_string(cislo);
+  string cislo_str = zaokrouhlit_cislo(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
@@ -72,9 +76,8 @@ int main() {
     {
     case 5:
       for (auto i = historie1.historie_vector.begin(); i != historie1.historie_vector.end(); ++i)
-      {
         cout << *i << endl;
-      }
+      
       continue;
     
     case 6:
@@ -135,7 +138,7 @@ int main() {
         output_char = '/';
         break;
     }
-    string cislo_str = roundf(cislo) == cislo ? to_string((int)cislo) : to_string(cislo);
+    string cislo_str = zaokrouhlit_cislo(cislo);;
     historie1.historie_vector.push_back(cislo1 + " " + output_char + " " + cislo2 + " = " + cislo_str);
   }
   nashledanou:
