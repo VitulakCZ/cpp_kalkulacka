@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cmath>
+#include <vector>
+
 using namespace std;
 
 bool is_number(const string& s)
@@ -8,39 +11,47 @@ bool is_number(const string& s)
     return !s.empty() && it == s.end();
 }
 
-string scitani(int cislo1, int cislo2) {
-  int cislo = cislo1 + cislo2;
+string scitani(int cislo1, int cislo2, float& cislo) {
+  cislo = cislo1 + cislo2;
   string cislo_str = to_string(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
-string odcitani(int cislo1, int cislo2) {
-  int cislo = cislo1 - cislo2;
+string odcitani(int cislo1, int cislo2, float& cislo) {
+  cislo = cislo1 - cislo2;
   string cislo_str = to_string(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
-string nasobeni(int cislo1, int cislo2) {
-  int cislo = cislo1 * cislo2;
+string nasobeni(int cislo1, int cislo2, float& cislo) {
+  cislo = cislo1 * cislo2;
   string cislo_str = to_string(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
-string deleni(float cislo1, float cislo2) {
+string deleni(float cislo1, float cislo2, float& cislo) {
   if (cislo2 == 0)
     return "ERROR: Nelze dělit nulou!";
   
-  float cislo = cislo1 / cislo2;
+  cislo = cislo1 / cislo2;
   string cislo_str = to_string(cislo);
   return "Výsledek je: " + cislo_str;
 }
 
+struct historie
+{
+   vector<string> historie_vector;
+};
+
+
 int main() {
+  historie historie1;
+
   for (; true; ){
     string input;
     int input_int;
-    const int vyber = 5;
-    cout << "1 pro sčítání, 2 pro odčítání, 3 pro násobení, 4 pro dělení, 5 pro ukončení: ";
+    const int vyber = 6;
+    cout << "1 pro sčítání, 2 pro odčítání, 3 pro násobení, 4 pro dělení, 5 pro historii, 6 pro ukončení: ";
     cin >> input;
     
     if (!is_number(input))
@@ -57,8 +68,18 @@ int main() {
       continue;
     }
     
-    if (input_int == 5)
-      break;
+    switch (input_int)
+    {
+    case 5:
+      for (auto i = historie1.historie_vector.begin(); i != historie1.historie_vector.end(); ++i)
+      {
+        cout << *i << endl;
+      }
+      continue;
+    
+    case 6:
+      goto nashledanou;
+    }
 
     string cislo1;
     string cislo2;
@@ -89,21 +110,34 @@ int main() {
     test:
     int cislo1_int = cislo1_zaporne ? -stoi(cislo1) : stoi(cislo1);
     int cislo2_int = cislo2_zaporne ? -stoi(cislo2) : stoi(cislo2);
+    float cislo;
+    char output_char;
+
     switch (input_int)
     {
       case 1:
-        cout << scitani(cislo1_int, cislo2_int) << endl;
+        cout << scitani(cislo1_int, cislo2_int, cislo) << endl;
+        output_char = '+';
         break;
       case 2:
-        cout << odcitani(cislo1_int, cislo2_int) << endl;
+        cout << odcitani(cislo1_int, cislo2_int, cislo) << endl;
+        output_char = '-';
         break;
       case 3:
-        cout << nasobeni(cislo1_int, cislo2_int) << endl;
+        cout << nasobeni(cislo1_int, cislo2_int, cislo) << endl;
+        output_char = '*';
         break;
       case 4:
-        cout << deleni(cislo1_int, cislo2_int) << endl;
+        string div = deleni(cislo1_int, cislo2_int, cislo);
+        cout << div << endl;
+        if (div[0] == 'E')
+          continue;
+        output_char = '/';
         break;
     }
+    string cislo_str = roundf(cislo) == cislo ? to_string((int)cislo) : to_string(cislo);
+    historie1.historie_vector.push_back(cislo1 + " " + output_char + " " + cislo2 + " = " + cislo_str);
   }
+  nashledanou:
   return 0;
 }
