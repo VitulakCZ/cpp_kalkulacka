@@ -28,9 +28,8 @@ string nasobeni(int cislo1, int cislo2) {
 
 string deleni(float cislo1, float cislo2) {
   if (cislo2 == 0)
-  {
     return "ERROR: Nelze dělit nulou!";
-  }
+  
   float cislo = cislo1 / cislo2;
   string cislo_str = to_string(cislo);
   return "Výsledek je: " + cislo_str;
