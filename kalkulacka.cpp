@@ -139,7 +139,7 @@ int main() {
         break;
     }
     string cislo_str = zaokrouhlit_cislo(cislo);
-    historie1.historie_vector.push_back(cislo1 + " " + output_char + " " + cislo2 + " = " + cislo_str);
+    historie1.historie_vector.push_back(to_string(cislo1_int) + " " + output_char + " " + to_string(cislo2_int) + " = " + cislo_str);
   }
   nashledanou:
   return 0;
