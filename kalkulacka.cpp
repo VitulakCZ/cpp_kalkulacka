@@ -96,8 +96,8 @@ int main() {
 		{
 			if (cislo1[0] == '-' && is_number(cislo1.erase(0, 1)))
 			{
-			cislo1_zaporne = true;
-			goto test;
+				cislo1_zaporne = true;
+				goto test;
 			}
 
 			if (cislo2[0] == '-' && is_number(cislo2.erase(0, 1)))
